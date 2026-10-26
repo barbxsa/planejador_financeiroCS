@@ -87,7 +87,7 @@ namespace planejador_financeiroCS.Services
                 var daysInMonth = DateTime.DaysInMonth(year, month);
                 var actualDay = Math.Min(day, daysInMonth);
                 var occurrenceDate = new DateTime(year, month, actualDay);
-                results.Add(new Lancamento { Name = r.Name, Value = r.Value, Date = occurrenceDate, IsRecurringMonthly = true });
+                results.Add(new Lancamento { Id = r.Id, Name = r.Name, Value = r.Value, Tipo = r.Tipo, Date = occurrenceDate, IsRecurringMonthly = true });
             }
 
             // sort by date

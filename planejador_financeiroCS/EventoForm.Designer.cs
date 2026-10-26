@@ -28,138 +28,185 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            textBoxNome = new TextBox();
-            checkBoxRecurring = new CheckBox();
-            lblData = new Label();
+            lblTitulo = new Label();
+            lblDataValor = new Label();
             lblEvento = new Label();
-            btnSalvar = new Button();
+            textBoxNome = new TextBox();
             lblValor = new Label();
-            textBoxValor = new TextBox();
+            numValor = new NumericUpDown();
+            lblTipo = new Label();
             comboBoxTipo = new ComboBox();
-            label1 = new Label();
+            checkBoxRecurring = new CheckBox();
+            btnCancelar = new Button();
+            btnSalvar = new Button();
+            ((System.ComponentModel.ISupportInitialize)numValor).BeginInit();
             SuspendLayout();
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(35, 36);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(210, 23);
-            textBox1.TabIndex = 0;
-            // 
-            // textBoxNome
-            // 
-            textBoxNome.Location = new Point(35, 96);
-            textBoxNome.Name = "textBoxNome";
-            textBoxNome.Size = new Size(210, 23);
-            textBoxNome.TabIndex = 1;
-            // 
-            // checkBoxRecurring
-            // 
-            checkBoxRecurring.AutoSize = true;
-            checkBoxRecurring.Location = new Point(35, 248);
-            checkBoxRecurring.Name = "checkBoxRecurring";
-            checkBoxRecurring.Size = new Size(124, 19);
-            checkBoxRecurring.TabIndex = 2;
-            checkBoxRecurring.Text = "Recorrente mensal";
-            checkBoxRecurring.UseVisualStyleBackColor = true;
-            // 
-            // lblData
-            // 
-            lblData.AutoSize = true;
-            lblData.Location = new Point(35, 18);
-            lblData.Name = "lblData";
-            lblData.Size = new Size(31, 15);
-            lblData.TabIndex = 2;
-            lblData.Text = "Data";
-            // 
+            //
+            // lblTitulo
+            //
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTitulo.Location = new Point(20, 16);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(152, 25);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "Novo lançamento";
+            //
+            // lblDataValor
+            //
+            lblDataValor.AutoSize = true;
+            lblDataValor.ForeColor = Color.FromArgb(107, 114, 128);
+            lblDataValor.Location = new Point(20, 44);
+            lblDataValor.Name = "lblDataValor";
+            lblDataValor.Size = new Size(31, 15);
+            lblDataValor.TabIndex = 1;
+            lblDataValor.Text = "Data";
+            //
             // lblEvento
-            // 
+            //
             lblEvento.AutoSize = true;
-            lblEvento.Location = new Point(35, 78);
+            lblEvento.ForeColor = Color.FromArgb(31, 41, 55);
+            lblEvento.Location = new Point(20, 80);
             lblEvento.Name = "lblEvento";
-            lblEvento.Size = new Size(99, 15);
-            lblEvento.TabIndex = 3;
-            lblEvento.Text = "Nome do Evento:";
-            // 
-            // btnSalvar
-            // 
-            btnSalvar.Location = new Point(170, 281);
-            btnSalvar.Name = "btnSalvar";
-            btnSalvar.Size = new Size(75, 23);
-            btnSalvar.TabIndex = 4;
-            btnSalvar.Text = "Salvar";
-            btnSalvar.UseVisualStyleBackColor = true;
-            btnSalvar.Click += btnSalvar_Click;
-            // 
+            lblEvento.Size = new Size(40, 15);
+            lblEvento.TabIndex = 2;
+            lblEvento.Text = "Nome";
+            //
+            // textBoxNome
+            //
+            textBoxNome.Location = new Point(20, 100);
+            textBoxNome.Name = "textBoxNome";
+            textBoxNome.Size = new Size(280, 23);
+            textBoxNome.TabIndex = 3;
+            //
             // lblValor
-            // 
+            //
             lblValor.AutoSize = true;
-            lblValor.Location = new Point(35, 133);
+            lblValor.ForeColor = Color.FromArgb(31, 41, 55);
+            lblValor.Location = new Point(20, 136);
             lblValor.Name = "lblValor";
-            lblValor.Size = new Size(33, 15);
-            lblValor.TabIndex = 5;
-            lblValor.Text = "Valor";
-            // 
-            // textBoxValor
-            // 
-            textBoxValor.Location = new Point(35, 151);
-            textBoxValor.Name = "textBoxValor";
-            textBoxValor.Size = new Size(210, 23);
-            textBoxValor.TabIndex = 6;
-            // 
+            lblValor.Size = new Size(58, 15);
+            lblValor.TabIndex = 4;
+            lblValor.Text = "Valor (R$)";
+            //
+            // numValor
+            //
+            numValor.DecimalPlaces = 2;
+            numValor.Location = new Point(20, 156);
+            numValor.Maximum = new decimal(new int[] { 999999999, 0, 0, 0 });
+            numValor.Name = "numValor";
+            numValor.Size = new Size(130, 23);
+            numValor.TabIndex = 5;
+            numValor.TextAlign = HorizontalAlignment.Right;
+            numValor.ThousandsSeparator = true;
+            //
+            // lblTipo
+            //
+            lblTipo.AutoSize = true;
+            lblTipo.ForeColor = Color.FromArgb(31, 41, 55);
+            lblTipo.Location = new Point(170, 136);
+            lblTipo.Name = "lblTipo";
+            lblTipo.Size = new Size(30, 15);
+            lblTipo.TabIndex = 6;
+            lblTipo.Text = "Tipo";
+            //
             // comboBoxTipo
-            // 
+            //
             comboBoxTipo.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTipo.FormattingEnabled = true;
             comboBoxTipo.Items.AddRange(new object[] { "Receita", "Despesa" });
-            comboBoxTipo.Location = new Point(35, 201);
+            comboBoxTipo.Location = new Point(170, 156);
             comboBoxTipo.Name = "comboBoxTipo";
-            comboBoxTipo.Size = new Size(121, 23);
-            comboBoxTipo.TabIndex = 8;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(35, 183);
-            label1.Name = "label1";
-            label1.Size = new Size(30, 15);
-            label1.TabIndex = 9;
-            label1.Text = "Tipo";
-            // 
+            comboBoxTipo.Size = new Size(130, 23);
+            comboBoxTipo.TabIndex = 7;
+            //
+            // checkBoxRecurring
+            //
+            checkBoxRecurring.AutoSize = true;
+            checkBoxRecurring.ForeColor = Color.FromArgb(31, 41, 55);
+            checkBoxRecurring.Location = new Point(20, 196);
+            checkBoxRecurring.Name = "checkBoxRecurring";
+            checkBoxRecurring.Size = new Size(209, 19);
+            checkBoxRecurring.TabIndex = 8;
+            checkBoxRecurring.Text = "Repetir todo mês neste mesmo dia";
+            checkBoxRecurring.UseVisualStyleBackColor = true;
+            //
+            // btnCancelar
+            //
+            btnCancelar.BackColor = Color.White;
+            btnCancelar.Cursor = Cursors.Hand;
+            btnCancelar.DialogResult = DialogResult.Cancel;
+            btnCancelar.FlatAppearance.BorderColor = Color.FromArgb(229, 231, 235);
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = Color.FromArgb(31, 41, 55);
+            btnCancelar.Location = new Point(110, 240);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(90, 34);
+            btnCancelar.TabIndex = 10;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
+            //
+            // btnSalvar
+            //
+            btnSalvar.BackColor = Color.FromArgb(37, 99, 235);
+            btnSalvar.Cursor = Cursors.Hand;
+            btnSalvar.FlatAppearance.BorderSize = 0;
+            btnSalvar.FlatStyle = FlatStyle.Flat;
+            btnSalvar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnSalvar.ForeColor = Color.White;
+            btnSalvar.Location = new Point(210, 240);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(90, 34);
+            btnSalvar.TabIndex = 9;
+            btnSalvar.Text = "Salvar";
+            btnSalvar.UseVisualStyleBackColor = false;
+            btnSalvar.Click += btnSalvar_Click;
+            //
             // EventoForm
-            // 
+            //
+            AcceptButton = btnSalvar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(415, 316);
-            Controls.Add(label1);
-            Controls.Add(comboBoxTipo);
-            Controls.Add(textBoxValor);
-            Controls.Add(lblValor);
-            Controls.Add(btnSalvar);
+            BackColor = Color.White;
+            CancelButton = btnCancelar;
+            ClientSize = new Size(320, 294);
+            Controls.Add(lblTitulo);
+            Controls.Add(lblDataValor);
             Controls.Add(lblEvento);
-            Controls.Add(lblData);
-            Controls.Add(checkBoxRecurring);
             Controls.Add(textBoxNome);
-            Controls.Add(textBox1);
+            Controls.Add(lblValor);
+            Controls.Add(numValor);
+            Controls.Add(lblTipo);
+            Controls.Add(comboBoxTipo);
+            Controls.Add(checkBoxRecurring);
+            Controls.Add(btnSalvar);
+            Controls.Add(btnCancelar);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "EventoForm";
-            Text = "EventoForm";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Novo lançamento";
             Load += EventoForm_Load;
+            ((System.ComponentModel.ISupportInitialize)numValor).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private TextBox textBoxNome;
-        private Label lblData;
+        private Label lblTitulo;
+        private Label lblDataValor;
         private Label lblEvento;
-        private Button btnSalvar;
-        private CheckBox checkBoxRecurring;
+        private TextBox textBoxNome;
         private Label lblValor;
-        private TextBox textBoxValor;
+        private NumericUpDown numValor;
+        private Label lblTipo;
         private ComboBox comboBoxTipo;
-        private Label label1;
+        private CheckBox checkBoxRecurring;
+        private Button btnCancelar;
+        private Button btnSalvar;
     }
 }

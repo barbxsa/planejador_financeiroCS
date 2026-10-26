@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Linq;
 using planejador_financeiroCS.Services;
 
@@ -21,11 +21,13 @@ namespace planejador_financeiroCS
 
         private void showDays(int month, int year)
         {
-            flowLayoutPanel1.Controls.Clear();
+            // Controls.Clear() não libera os controles; descartamos as células antigas
+            while (flowLayoutPanel1.Controls.Count > 0)
+                flowLayoutPanel1.Controls[0].Dispose();
             _year = year;
             _month = month;
 
-            string monthName = new DateTimeFormatInfo().GetMonthName(month);
+            string monthName = Tema.Cultura.DateTimeFormat.GetMonthName(month);
             lblMes.Text = monthName.ToUpper() + " " + year;
 
             DateTime startofTheMonth = new DateTime(year, month, 1);
@@ -42,8 +44,25 @@ namespace planejador_financeiroCS
             for (int i = 1; i <= day; i++)
             {
                 ucDia uc = new ucDia(new DateTime(year, month, i));
+                uc.LancamentosAlterados += (s, e) => atualizarResumo();
                 flowLayoutPanel1.Controls.Add(uc);
             }
+
+            atualizarResumo();
+        }
+
+        // totais do mês exibido no painel lateral
+        private void atualizarResumo()
+        {
+            var lancamentos = LancamentoStore.Instance.GetLancamentosForMonth(_month, _year);
+            var receitas = lancamentos.Where(l => l.ValorComSinal > 0).Sum(l => l.ValorComSinal);
+            var despesas = -lancamentos.Where(l => l.ValorComSinal < 0).Sum(l => l.ValorComSinal);
+            var saldo = receitas - despesas;
+
+            lblReceitas.Text = Tema.Moeda(receitas);
+            lblDespesas.Text = Tema.Moeda(despesas);
+            lblSaldo.Text = Tema.MoedaComSinal(saldo);
+            lblSaldo.ForeColor = Tema.CorDoValor(saldo);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -71,6 +90,11 @@ namespace planejador_financeiroCS
             showDays(_month, _year);
         }
 
+        private void btnHoje_Click(object sender, EventArgs e)
+        {
+            showDays(DateTime.Today.Month, DateTime.Today.Year);
+        }
+
         private void btnMensal_Click(object sender, EventArgs e)
         {
             frmMensal open = new frmMensal();
@@ -78,7 +102,7 @@ namespace planejador_financeiroCS
             this.Hide();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnExplorador_Click(object sender, EventArgs e)
         {
             frmExplorador open = new frmExplorador();
             open.Show();

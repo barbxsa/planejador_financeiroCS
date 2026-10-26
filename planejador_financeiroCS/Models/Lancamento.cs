@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace planejador_financeiroCS.Models
 {
@@ -11,5 +12,9 @@ namespace planejador_financeiroCS.Models
         public DateTime Date { get; set; }
         // If true, this lancamento repeats every month on Date.Day
         public bool IsRecurringMonthly { get; set; }
+
+        // Receita soma, qualquer outro tipo (Despesa) subtrai
+        [JsonIgnore]
+        public decimal ValorComSinal => Tipo == "Receita" ? Value : -Value;
     }
 }

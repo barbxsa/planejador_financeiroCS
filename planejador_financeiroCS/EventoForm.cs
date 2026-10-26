@@ -12,10 +12,6 @@ namespace planejador_financeiroCS
 {
     public partial class EventoForm : Form
     {
-        //create a connectionstring
-        //string connString = "Server=localhost;Port=3306;Database=planejador_financeiro;Uid=root;Pwd=;SslMode=None;";
-
-
         private readonly DateTime _data;
 
         public EventoForm(DateTime data)
@@ -26,39 +22,46 @@ namespace planejador_financeiroCS
 
         private void EventoForm_Load(object sender, EventArgs e)
         {
-            textBox1.Text = _data.ToString("dd/MM/yyyy");
-            textBox1.Enabled = false;
+            // ex.: "segunda-feira, 26 de outubro de 2026"
+            lblDataValor.Text = _data.ToString("D", Tema.Cultura);
+            Text = "Novo lançamento – " + _data.ToString("dd/MM/yyyy");
+            comboBoxTipo.SelectedItem = "Despesa";
         }
-
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            var nome = textBoxNome.Text.Trim();
+            if (nome.Length == 0)
+            {
+                MessageBox.Show("Informe o nome do lançamento.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBoxNome.Focus();
+                return;
+            }
+            if (numValor.Value <= 0)
+            {
+                MessageBox.Show("Informe um valor maior que zero.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numValor.Focus();
+                return;
+            }
+
             try
             {
-                DateTime data = _data;
-                if (!decimal.TryParse(textBoxValor.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out decimal valor))
+                var tipo = comboBoxTipo.SelectedItem?.ToString() ?? string.Empty;
+                if (checkBoxRecurring.Checked)
                 {
-                    MessageBox.Show("Valor inválido.");
-                    return;
-                }
-                if (checkBoxRecurring != null && checkBoxRecurring.Checked)
-                {
-                    LancamentoStore.Instance.AddRecurringMonthly(textBoxNome.Text ?? string.Empty, valor, comboBoxTipo.SelectedItem?.ToString() ?? string.Empty, data);
+                    LancamentoStore.Instance.AddRecurringMonthly(nome, numValor.Value, tipo, _data);
                 }
                 else
                 {
-                    LancamentoStore.Instance.AddOneTime(textBoxNome.Text ?? string.Empty, valor, comboBoxTipo.SelectedItem?.ToString() ?? string.Empty, data);
+                    LancamentoStore.Instance.AddOneTime(nome, numValor.Value, tipo, _data);
                 }
 
-                MessageBox.Show("Salvo com sucesso!");
-                Close();
+                DialogResult = DialogResult.OK;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao salvar: " + ex.Message);
+                MessageBox.Show("Erro ao salvar: " + ex.Message, Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
 }
